@@ -4,9 +4,10 @@
 <!-- Head XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue Contatos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Lista de Contatos</title>
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.png' />
 </head>
 
 <!-- Body XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
@@ -18,15 +19,16 @@
         <!-- Linha 1 -->
         <div class="row mt-5">
 
-            <!-- Coluna 1 [name] =====================================================================================================================================-->
+            <!-- Coluna 1 [Título] =====================================================================================================================================-->
             <div class="col-12 border-bottom mb-5 d-flex justify-content-between align-items-center">
                 <!-- Mostra a variável criada no Data -->
-                <h2 v-bind:title="titulo">{{name}}</h2>
-                <p class="mt-2">{{QuantidadeContatos}}</p>
+                <h2 v-bind:title="titulo" class="Titulo Cor_Vue">{{name}}</h2>
+                <p>By {{autora}}</p>
+                <p>{{QuantidadeContatos}}</p>                
             </div>
 
-            <!-- Coluna 2 [form] ==============================================================================================================================================-->
-            <div id="Formulario" class="col-4">
+            <!-- Coluna 2 [Formulário] ==============================================================================================================================================-->
+            <div id="Formulario" class="col-6">
 
                 <form action="">
 
@@ -35,26 +37,25 @@
                         <input v-model="ObjetoContato.name" type="text" class="form-control" placeholder="Nome Completo...">
                     </div>
 
-
                     <div class="form-group mr-1">
                         <label>E-mail</label>
                         <input v-model="ObjetoContato.email" type="email" class="form-control" placeholder="Seu melhor email...">
                     </div>
 
-                    <div class="form-group mr-1">
+                    <div class="form-group mr-1 mb-4">
                         <label>Contato</label>
                         <input v-model="ObjetoContato.phone" type="phone" class="form-control" placeholder="Telefone/Celular">
                     </div>
 
                     <div class="form-group ml-1">
-                        <button v-if="!Editando" class="btn btn-lg btn-rounded btn-success" v-on:click.prevent="SalvarContato(ObjetoContato)">Criar Contato</button>
-                        <button v-if="Editando" class="btn btn-lg btn-rounded btn-primary" v-on:click.prevent="AtualizarContato(ObjetoContato)">Atualizar Contato</button>
+                        <button v-if="!Editando" class="btn btn-lg btn-rounded Background_Vue" v-on:click.prevent="SalvarContato(ObjetoContato)">Criar Contato</button>
+                        <button v-if="Editando" class="btn btn-lg btn-rounded Cor_Editar" v-on:click.prevent="AtualizarContato(ObjetoContato)">Atualizar Contato</button>
                     </div>
                 </form>
             </div>
 
-            <!-- Coluna 3 [cards] ====================================================================================================================================-->
-            <div class="col-8 border-left">
+            <!-- Coluna 3 [Cards] ====================================================================================================================================-->
+            <div class="col-6 border-left">
                 
                 <!-- Se tiver pelo menos um contato registrado... ------------------------------------------------------------------------------------------------------>
                 <div class="contact" v-if="ListaContatos.length">
@@ -72,8 +73,8 @@
                                 <!-- O Card recebe email e telefone -->
                                 <p class="card-text">{{ObjetoContato.email}}, {{ObjetoContato.phone}}</p>
                                 <!-- Botões do Card -->
-                                <a href="#" class="btn btn-sm btn-primary" @click.prevent="EditarContato(ObjetoContato)">EDITAR</a>
-                                <a href="#" class="btn btn-sm btn-danger" @click.prevent="RemoverContato(ObjetoContato.id)">DELETAR</a>
+                                <a href="#" class="btn btn-sm Cor_Editar" @click.prevent="EditarContato(ObjetoContato)">EDITAR</a>
+                                <a href="#" class="btn btn-sm Cor_Deletar" @click.prevent="RemoverContato(ObjetoContato.id)">DELETAR</a>
                             
                             </div>
 
@@ -111,6 +112,8 @@
                 ListaContatos: [],
                 // Variável Normal
                 name:'Lista de Contatos',
+                // Autoria
+                autora:'Mariana Ramacciotti',
                 // Objeto que contém 3 campos      
                 ObjetoContato:{
                     id:'',
@@ -121,8 +124,7 @@
                 // Descobre se está editando ou deletando o contato
                 Editando: false,
                 // Mensagem para aparecer ao passar o mouse pelo título
-                titulo: 'Meu primeiro aplicativo com vue.js!' 
-
+                titulo: 'Meu primeiro aplicativo com vue.js!',
             },
 
             // 3) Propriedade Computada permite adicionar mais informações a uma propriedade ------------------------------------------------------------------------------------------------------------
@@ -132,7 +134,7 @@
                 QuantidadeContatos(){
                     // Mostra a quantidade de contatos na array lista
                     return `O Total de Contatos Registrados é ${this.ListaContatos.length}`;
-                }
+                },
             },
 
             // 4) Coletar dados logo após o componente ser criado ------------------------------------------------------------------------------------------------------------
@@ -272,6 +274,63 @@
         }});
         
     </script>
+
+    <style>
+
+        body{
+            color:#A6A9B7;
+        }
+
+        input{
+            color:#A6A9B7 !important;
+        }
+
+        ::placeholder {
+            color:#A6A9B7 !important;
+        }
+
+        .Titulo{
+            margin-bottom: 20px;
+        }
+
+        .card-body{
+            width: 107%;
+        }
+
+        .Cor_Editar{
+            background-color: #3498DB;
+            color:white;
+            margin-right: 5px;
+        }
+        
+        .Cor_Deletar{
+            background-color: #E74C3C;
+            color:white;
+        }
+
+        .Cor_Editar:hover, .Cor_Deletar:hover{
+            color:white;
+        }
+
+
+        #Formulario{
+            padding-right: 25px;
+        }
+
+        .Cor_Vue{
+            color: #3FB27F;
+        }
+
+        .Background_Vue{
+            background-color:  #3FB27F;
+            color:white;
+        }
+
+        .Background_Vue:hover{
+            color:white;
+        }
+        
+    </style>
 
 </body>
 </html>
