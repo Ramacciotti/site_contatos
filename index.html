@@ -22,11 +22,11 @@
             <div class="col-12 border-bottom mb-5 d-flex justify-content-between align-items-center">
                 <!-- Mostra a variável criada no Data -->
                 <h2 v-bind:title="titulo">{{name}}</h2>
-                <p class="mt-2" v-if="ListaContatos.length >= 1">{{QuantidadeContatos}}</p>
+                <p class="mt-2">{{QuantidadeContatos}}</p>
             </div>
 
             <!-- Coluna 2 [form] ==============================================================================================================================================-->
-            <div id="Formulario" class="col-4" >
+            <div id="Formulario" class="col-4">
 
                 <form action="">
 
@@ -55,7 +55,7 @@
 
             <!-- Coluna 3 [cards] ====================================================================================================================================-->
             <div class="col-8 border-left">
-
+                
                 <!-- Se tiver pelo menos um contato registrado... ------------------------------------------------------------------------------------------------------>
                 <div class="contact" v-if="ListaContatos.length">
                         
@@ -75,7 +75,7 @@
                                 <a href="#" class="btn btn-sm btn-primary" @click.prevent="EditarContato(ObjetoContato)">EDITAR</a>
                                 <a href="#" class="btn btn-sm btn-danger" @click.prevent="RemoverContato(ObjetoContato.id)">DELETAR</a>
                             
-                            </div>                            
+                            </div>
 
                         </div>
 
@@ -130,19 +130,19 @@
                 
                 // Função                
                 QuantidadeContatos(){
-
                     // Mostra a quantidade de contatos na array lista
                     return `O Total de Contatos Registrados é ${this.ListaContatos.length}`;
                 }
-                
             },
 
             // 4) Coletar dados logo após o componente ser criado ------------------------------------------------------------------------------------------------------------
             created(){
 
-                // Alimenta o atributo contacts do data
-                this.ListaContatos = JSON.parse(localStorage.getItem("contactsApp"));                       
-                
+                // Se tiver algum contato no storage... 
+                if(localStorage.hasOwnProperty("contactsApp")){                    
+                    //Alimenta o atributo contacts do data
+                    this.ListaContatos = JSON.parse(localStorage.getItem("contactsApp"));              
+                }
             },
 
             // 5) Declarar Métodos ---------------------------------------------------------------------------------------------------------------------------------
